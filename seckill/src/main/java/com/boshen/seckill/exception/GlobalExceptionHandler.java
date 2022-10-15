@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
             GlobalException ex = (GlobalException) e;
             return RespBean.error(ex.getRespBeanEnum());
         }else if(e instanceof BindException){
+//            bind异常是通过validation组件抛出的
             BindException ex = (BindException) e;
             RespBean error = RespBean.error(RespBeanEnum.BIND_ERROR);
             error.setMessage("参数校验异常："+ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());

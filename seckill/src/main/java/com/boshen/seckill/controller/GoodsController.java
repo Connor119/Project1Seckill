@@ -28,7 +28,7 @@ public class GoodsController {
     private IGoodsService goodsService;
 
     @RequestMapping("/toList")
-    public String toList(Model model,User u){
+    public String toList(HttpServletRequest request,HttpServletResponse response,@CookieValue("userTicket") String ticket,Model model){
 //        if(StringUtils.isEmpty(ticket)){
 //            return "login";
 //        }
@@ -37,10 +37,10 @@ public class GoodsController {
 //        if(null == u){
 //            return "login";
 //        }
+        User u = userService.getUserByCookie(ticket,request,response);
         model.addAttribute("user",u);
-        model.addAttribute("goodsList",goodsService.findGoodsVo());
+//        model.addAttribute("goodsList",goodsService.findGoodsVo());
 //        System.out.println(goodsService.findGoodsVo());
-
 
         return "goodsList";
     }
