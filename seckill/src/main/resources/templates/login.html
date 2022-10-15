@@ -73,8 +73,8 @@
 
         var inputPass = $("#password").val();
         var salt = 'la2b3c4d';
-        var str = salt.charAt(0) + salt.charAt(2) + salt.charAt(3) + salt.charAt(5) + inputPass;
-        var password = inputPass;
+        var str =inputPass;
+        var password = md5(str);
         $.ajax({
             url: "/login/doLogin",
             type: "POST",
