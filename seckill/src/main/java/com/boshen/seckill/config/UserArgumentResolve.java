@@ -21,7 +21,7 @@ public class UserArgumentResolve implements HandlerMethodArgumentResolver {
     @Autowired
     private IUserService userService;
 
-
+//判断传入的参数的数据类型是什么
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         Class<?> clazz = parameter.getParameterType();

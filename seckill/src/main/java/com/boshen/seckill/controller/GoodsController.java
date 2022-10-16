@@ -28,7 +28,7 @@ public class GoodsController {
     private IGoodsService goodsService;
 
     @RequestMapping("/toList")
-    public String toList(HttpServletRequest request,HttpServletResponse response,@CookieValue("userTicket") String ticket,Model model){
+    public String toList(User user,Model model){//user 的校验应该放在进入这个controller之前
 //        if(StringUtils.isEmpty(ticket)){
 //            return "login";
 //        }
@@ -37,9 +37,9 @@ public class GoodsController {
 //        if(null == u){
 //            return "login";
 //        }
-        User u = userService.getUserByCookie(ticket,request,response);
-        model.addAttribute("user",u);
-//        model.addAttribute("goodsList",goodsService.findGoodsVo());
+//        User u = userService.getUserByCookie(ticket,request,response);
+        model.addAttribute("user",user);
+        model.addAttribute("goodsList",goodsService.findGoodsVo());
 //        System.out.println(goodsService.findGoodsVo());
 
         return "goodsList";
@@ -55,6 +55,11 @@ public class GoodsController {
         Date startDate = goodsVo.getStartDate();
         Date endDate = goodsVo.getEndDate();
         Date nowDate = new Date();
+
+        System.out.println(startDate);
+        System.out.println(endDate);
+        System.out.println(nowDate);
+
         int secKillStatus = 0;
 
         if(nowDate.before(startDate)){
@@ -64,6 +69,8 @@ public class GoodsController {
         }else{
             secKillStatus = 1;
         }
+
+        System.out.println(secKillStatus);
 
         model.addAttribute("goods", goodsVo);
         model.addAttribute("secKillStatus",secKillStatus);
