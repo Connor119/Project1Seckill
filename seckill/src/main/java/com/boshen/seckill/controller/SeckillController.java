@@ -30,6 +30,9 @@ public class SeckillController {
 
     @RequestMapping("/doSeckill")
     public String doSeckill(Model model, User user,Long goodsId){
+        /*
+        * 当用户还没有登录去登录页，如果用户已经登录了，那么判断用户是否可以秒杀，可以秒杀就去订单页，不能秒杀就去秒杀失败页
+        * */
         if(user == null){
             return "login";
         }
@@ -40,7 +43,7 @@ public class SeckillController {
             model.addAttribute("errmsg", RespBeanEnum.EMPTY_STOCK.getMessage());
             return "secKillFail";
         }
-//        判断订单
+//        判断订单（每个用户只能秒杀一件）
         SeckillOrder seckillOrder = seckillOrderService.getOne(new QueryWrapper<SeckillOrder>().eq("user_id", user.getId()).eq("goods_id", goodsId));
         if(seckillOrder != null){
             model.addAttribute("errmsg",RespBeanEnum.REPEATE_ERROR.getMessage());
