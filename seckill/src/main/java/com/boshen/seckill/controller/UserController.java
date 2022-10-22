@@ -38,5 +38,16 @@ public class UserController {
         sender.send("hello");
     }
 
+    @RequestMapping("/mq1")
+    @ResponseBody
+    public void mq1(){
+        sender.send01("hello red");
+    }
+    @RequestMapping("/mq2")
+    @ResponseBody
+    public void mq2(){
+        sender.send02("hello green");
+    }
+
 
 }
